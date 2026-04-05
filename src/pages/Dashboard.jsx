@@ -26,7 +26,7 @@ export default function Dashboard() {
       const email = getUserEmail();
       if (!email) { nav("/login"); return; }
       const res = await API.get(`/users/by-email?email=${email}`);
-      if (!res.data?.id) throw new Error("Invalid user");
+      if (!res.data) throw new Error("Invalid user");
       setUserId(res.data.id);
     } catch (err) {
       console.error(err);
