@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -10,6 +10,10 @@ function App(){
   return(
     <HashRouter>
       <Routes>
+
+        {/* 🔥 DEFAULT ROUTE */}
+        <Route path="/" element={<Navigate to="/login" />} />
+
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
@@ -17,8 +21,9 @@ function App(){
         <Route path="/profile" element={<Profile />} />
         <Route path="/history" element={<History />} />
 
-        {/* 🔥 Default redirect */}
-        <Route path="*" element={<Login/>}/>
+        {/* 🔥 FALLBACK */}
+        <Route path="*" element={<Navigate to="/login" />} />
+
       </Routes>
     </HashRouter>
   );
