@@ -1,12 +1,13 @@
 import { jwtDecode } from "jwt-decode";
 
 export function getUserEmail() {
+  const token = localStorage.getItem("token");
+
+  // 🔥 NO TOKEN → SAFE EXIT
+  if (!token) return null;
+
   try {
-    const token = localStorage.getItem("token");
-
-    if (!token) return null;
-
-    // 🔥 IMPORTANT CHECK (THIS FIXES YOUR BUG)
+    // 🔥 VALID JWT CHECK
     if (token.split(".").length !== 3) {
       localStorage.removeItem("token");
       return null;
@@ -14,7 +15,7 @@ export function getUserEmail() {
 
     const decoded = jwtDecode(token);
 
-    // 🔥 check expiry
+    // 🔥 EXP CHECK
     if (decoded.exp * 1000 < Date.now()) {
       localStorage.removeItem("token");
       return null;
@@ -24,7 +25,7 @@ export function getUserEmail() {
 
   } catch (error) {
     console.error("Invalid token", error);
-    localStorage.removeItem("token"); // 🔥 cleanup
+    localStorage.removeItem("token");
     return null;
   }
 }
