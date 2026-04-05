@@ -23,6 +23,7 @@ export default function Login() {
     try {
       setLoading(true);
       const res = await API.post("/auth/login", { email, password });
+      console.log("LOGIN RESPONSE:", res.data);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.id);
       nav("/dashboard");
@@ -33,7 +34,6 @@ export default function Login() {
       setLoading(false);
     }
   };
-
   return (
     <>
       <style>{`
