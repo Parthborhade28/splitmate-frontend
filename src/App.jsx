@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -8,7 +8,7 @@ import History from "./pages/History";
 
 function App(){
   return(
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
@@ -16,8 +16,12 @@ function App(){
         <Route path="/trip/:id" element={<TripDetails/>}/>
         <Route path="/profile" element={<Profile />} />
         <Route path="/history" element={<History />} />
+
+        {/* 🔥 Default redirect */}
+        <Route path="*" element={<Login/>}/>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
+
 export default App;
